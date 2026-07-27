@@ -2,7 +2,16 @@
 (function () {
   'use strict';
 
-  var MAILTO = 'kanja.zakariae@gmail.com';
+  var MAILTO = 'contact@theapspartners.com';
+  /* Public proof links — filled in once the profile URLs are provided; the
+     anchors stay hidden while empty so no dead link ever ships. */
+  var CREDLY_URL = '';
+  var LINKEDIN_URL = '';
+
+  [['proof-credly', CREDLY_URL], ['proof-linkedin', LINKEDIN_URL]].forEach(function (p) {
+    var el = document.getElementById(p[0]);
+    if (el && p[1]) { el.href = p[1]; el.hidden = false; }
+  });
 
   /* ── Scroll reveal ─────────────────────────────────── */
   var revealed = document.querySelectorAll('.reveal');
