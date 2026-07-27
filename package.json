@@ -1,0 +1,12 @@
+{
+  "name": "theapspartners",
+  "version": "1.0.0",
+  "private": true,
+  "description": "The APS Partners — forensic Kinaxis Maestro consulting. Static site + lead-intake API.",
+  "scripts": {
+    "dev": "node dev-server.js"
+  },
+  "dependencies": {
+    "pg": "^8.13.1"
+  }
+}
