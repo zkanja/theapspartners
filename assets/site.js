@@ -55,7 +55,7 @@
   }
 
   function intentSubject(data) {
-    var tag = intent === 'question' ? '[Question]' : intent === 'rdv' ? '[Call request]' : '[Case file]';
+    var tag = intent === 'question' ? '[Question]' : intent === 'rdv' ? '[Call request]' : '[Problem report]';
     return tag + ' ' + (data.company || data.name);
   }
 
@@ -151,14 +151,14 @@
   function slot() {
     if (!bDate.value) { setStatus(bStatus, 'Pick a date first.', 'err'); return null; }
     var day = new Date(bDate.value + 'T12:00:00').getDay();
-    if (day === 0 || day === 6) { setStatus(bStatus, 'Weekends are for the codex — pick a business day.', 'err'); return null; }
+    if (day === 0 || day === 6) { setStatus(bStatus, 'Please pick a business day — weekends are off the calendar.', 'err'); return null; }
     var start = parisToUTC(bDate.value, bTime.value);
     if (start.getTime() < Date.now()) { setStatus(bStatus, 'That slot is already in the past.', 'err'); return null; }
     return { start: start, end: new Date(start.getTime() + 30 * 60000) };
   }
 
   var TITLE = 'The APS Partners · Intro call';
-  var DETAILS = '30-minute forensic intro call with Zakariae Kanja (The APS Partners).\n' +
+  var DETAILS = '30-minute intro call with Zakariae Kanja (The APS Partners).\n' +
     'Bring the symptom — the workbook, the date that moved, the number nobody trusts.\n' +
     'Site: https://zkanja.github.io/theapspartners/';
 
@@ -171,7 +171,7 @@
       '&add=' + encodeURIComponent(MAILTO) +
       '&ctz=Europe/Paris';
     window.open(url, '_blank', 'noopener');
-    setStatus(bStatus, 'Calendar opened — hit Save there and the invite reaches the practice.', 'ok');
+    setStatus(bStatus, 'Calendar opened — hit Save there and the invite lands in the founder\'s calendar.', 'ok');
   });
 
   document.getElementById('b-ics').addEventListener('click', function () {
@@ -191,7 +191,7 @@
     a.download = 'aps-partners-call.ics';
     a.click();
     URL.revokeObjectURL(a.href);
-    setStatus(bStatus, 'Invite downloaded — open it in Outlook/Calendar and send; it invites the practice automatically.', 'ok');
+    setStatus(bStatus, 'Invite downloaded — open it in Outlook/Calendar and send; the founder is invited automatically.', 'ok');
   });
 
   document.getElementById('b-mail').addEventListener('click', function () {
