@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://zkanja.github.io/theapspartners/sitemap.xml

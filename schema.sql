@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS leads (
   email       TEXT NOT NULL,
   company     TEXT,
   message     TEXT NOT NULL,
+  intent      TEXT NOT NULL DEFAULT 'case',
   user_agent  TEXT,
   created_at  TIMESTAMPTZ NOT NULL DEFAULT now()
 );

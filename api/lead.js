@@ -32,6 +32,7 @@ module.exports = async (req, res) => {
   const email = String(body.email || '').trim().slice(0, 200);
   const company = String(body.company || '').trim().slice(0, 200);
   const message = String(body.message || '').trim().slice(0, 5000);
+  const intent = ['case', 'question', 'rdv'].includes(body.intent) ? body.intent : 'case';
   const honeypot = String(body.website || '').trim();
 
   if (honeypot) {
@@ -46,9 +47,9 @@ module.exports = async (req, res) => {
 
   try {
     await getPool().query(
-      `INSERT INTO leads (name, email, company, message, user_agent)
-       VALUES ($1, $2, $3, $4, $5)`,
-      [name, email, company, message, String(req.headers['user-agent'] || '').slice(0, 300)]
+      `INSERT INTO leads (name, email, company, message, intent, user_agent)
+       VALUES ($1, $2, $3, $4, $5, $6)`,
+      [name, email, company, message, intent, String(req.headers['user-agent'] || '').slice(0, 300)]
     );
     res.status(200).json({ ok: true });
   } catch (err) {
