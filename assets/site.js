@@ -26,6 +26,78 @@
     revealed.forEach(function (el) { el.classList.add('in'); });
   }
 
+  /* ── Nav scrollspy ─────────────────────────────────── */
+  var spyLinks = Array.prototype.slice.call(document.querySelectorAll('.nav-links a[href^="#"]'));
+  var spyTargets = spyLinks.map(function (a) { return document.querySelector(a.getAttribute('href')); }).filter(Boolean);
+  if ('IntersectionObserver' in window && spyTargets.length) {
+    var spy = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        spyLinks.forEach(function (a) {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id);
+        });
+      });
+    }, { rootMargin: '-30% 0px -55% 0px' });
+    spyTargets.forEach(function (t) { spy.observe(t); });
+  }
+
+  /* ── Evidence count-up (respects reduced motion) ───── */
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduceMotion && 'IntersectionObserver' in window) {
+    var nums = document.querySelectorAll('.ev-item .bignum, .hero-side .fact .n');
+    var cu = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        cu.unobserve(e.target);
+        var node = e.target.firstChild;
+        if (!node || node.nodeType !== 3) return;
+        var target = parseInt(node.textContent, 10);
+        if (isNaN(target) || target < 2) return;
+        var t0 = null;
+        function tick(ts) {
+          if (!t0) t0 = ts;
+          var p = Math.min((ts - t0) / 900, 1);
+          node.textContent = String(Math.round(target * (1 - Math.pow(1 - p, 3))));
+          if (p < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      });
+    }, { threshold: 0.4 });
+    nums.forEach(function (el) { cu.observe(el); });
+  }
+
+  /* ── Slide lightbox ────────────────────────────────── */
+  var lb = document.getElementById('lightbox');
+  if (lb) {
+    var lbImg = document.getElementById('lb-img');
+    var lbCount = document.getElementById('lb-count');
+    var slides = Array.prototype.slice.call(document.querySelectorAll('.carousel-strip img'));
+    var cur = 0;
+
+    function showSlide(i) {
+      cur = (i + slides.length) % slides.length;
+      lbImg.src = slides[cur].src;
+      lbImg.alt = slides[cur].alt;
+      lbCount.textContent = (cur + 1) + ' / ' + slides.length;
+    }
+    function openLb(i) { showSlide(i); lb.classList.add('open'); document.body.style.overflow = 'hidden'; }
+    function closeLb() { lb.classList.remove('open'); document.body.style.overflow = ''; }
+
+    slides.forEach(function (img, i) {
+      img.addEventListener('click', function () { openLb(i); });
+    });
+    document.getElementById('lb-prev').addEventListener('click', function () { showSlide(cur - 1); });
+    document.getElementById('lb-next').addEventListener('click', function () { showSlide(cur + 1); });
+    document.getElementById('lb-close').addEventListener('click', closeLb);
+    lb.addEventListener('click', function (e) { if (e.target === lb) closeLb(); });
+    document.addEventListener('keydown', function (e) {
+      if (!lb.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLb();
+      if (e.key === 'ArrowLeft') showSlide(cur - 1);
+      if (e.key === 'ArrowRight') showSlide(cur + 1);
+    });
+  }
+
   /* ── Lead form with intent selector ────────────────── */
   var form = document.getElementById('lead-form');
   var status = document.getElementById('form-status');

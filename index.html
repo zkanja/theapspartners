@@ -8,6 +8,14 @@
 <meta property="og:title" content="The APS Partners — Kinaxis Maestro Consulting">
 <meta property="og:description" content="Root-cause diagnosis on production Maestro instances — written, verifiable, fast.">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://zkanja.github.io/theapspartners/">
+<meta property="og:image" content="https://zkanja.github.io/theapspartners/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="canonical" href="https://zkanja.github.io/theapspartners/">
 <link rel="icon" type="image/svg+xml" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" fill="%230a1520"/><text x="32" y="43" font-family="Georgia,serif" font-style="italic" font-weight="700" font-size="34" fill="%2300d2be" text-anchor="middle">A</text></svg>'>
 <link rel="stylesheet" href="assets/style.css">
 <script type="application/ld+json">
@@ -28,7 +36,27 @@
         "email": "contact@theapspartners.com",
         "address": { "@type": "PostalAddress", "addressLocality": "Paris", "addressCountry": "FR" }
       },
-      "knowsAbout": ["Kinaxis Maestro", "RapidResponse", "SAP integration", "S&OP", "Supply planning", "Capable-to-promise", "APS migration"]
+      "knowsAbout": ["Kinaxis Maestro", "RapidResponse", "SAP integration", "S&OP", "Supply planning", "Capable-to-promise", "APS migration"],
+      "makesOffer": [
+        {
+          "@type": "Offer",
+          "name": "Maestro Design Review — Express",
+          "description": "3-day fixed-scope audit of one planning area. Written report and restitution call.",
+          "price": "6500", "priceCurrency": "EUR"
+        },
+        {
+          "@type": "Offer",
+          "name": "Maestro Design Review — Standard",
+          "description": "5-day end-to-end review: data model, integration, authoring, parameters. Report, prioritised roadmap, restitution workshop.",
+          "price": "11000", "priceCurrency": "EUR"
+        },
+        {
+          "@type": "Offer",
+          "name": "Maestro Design Review — Plus",
+          "description": "Standard review plus a 90-day retainer while your team implements the fix list.",
+          "price": "19500", "priceCurrency": "EUR"
+        }
+      ]
     },
     {
       "@type": "FAQPage",
@@ -50,8 +78,13 @@
         },
         {
           "@type": "Question",
-          "name": "Which systems does the practice cover?",
+          "name": "Which systems do you cover?",
           "acceptedAnswer": { "@type": "Answer", "text": "Kinaxis Maestro end-to-end, plus SAP ECC/S4, BW extractors, middleware mappings, and legacy DSCP estates heading for migration." }
+        },
+        {
+          "@type": "Question",
+          "name": "How is the work priced?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The Maestro Design Review is a fixed-price package: €6,500 (Express, 3 days), €11,000 (Standard, 5 days) or €19,500 (Plus, with a 90-day retainer), with a written report as the deliverable. Other engagements run on a scoped day-rate." }
         }
       ]
     }
@@ -60,6 +93,7 @@
 </script>
 </head>
 <body>
+<a class="skip-link" href="#doctrine">Skip to content</a>
 
 <nav class="nav">
   <div class="wrap nav-inner">
@@ -67,7 +101,8 @@
     <div class="nav-links">
       <a href="#doctrine">Doctrine</a>
       <a href="#engagements">Engagements</a>
-      <a href="#series">Forensic Series</a>
+      <a href="#casework">Casework</a>
+      <a href="#series">Series</a>
       <a href="#founder">Founder</a>
       <a href="#faq">FAQ</a>
       <a class="nav-cta" href="#contact">Book a call</a>
@@ -224,11 +259,68 @@
   </div>
 </section>
 
+<!-- ─── CASEWORK ─────────────────────────────────────── -->
+<section class="section" id="casework">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="h-section">§ 04 · Casework</span>
+      <span class="mono-tag">Four closed investigations · anonymised</span>
+    </div>
+    <div class="case-grid reveal">
+
+      <div class="case-card">
+        <div class="case-top"><span class="idx">CASE / A</span><span class="c-badge">Configuration</span></div>
+        <h3>The transfer that lost its transit time</h3>
+        <div class="case-rows">
+          <div class="case-row"><span class="k">Symptom</span><p>Planned stock transfers at a global manufacturer started on their due date — transit time had silently vanished from every start date.</p></div>
+          <div class="case-row"><span class="k">Trace</span><p>Order policy semantics against the date chain: with <span class="mono">Lead Time Override = Yes</span> every date is read from the order record — you cannot override one segment and keep the rest computed.</p></div>
+          <div class="case-row hl"><span class="k">The call</span><p>Not a defect. Three settings interact: variable lead time, constraint date rule, order policy. One combination reproduces SAP exactly.</p></div>
+          <div class="case-row"><span class="k">Outcome</span><p>Dates aligned with SAP in production; the written trace became the team's reference note on transfer dating.</p></div>
+        </div>
+      </div>
+
+      <div class="case-card">
+        <div class="case-top"><span class="idx">CASE / B</span><span class="c-badge">By-design</span></div>
+        <h3>The defect that wasn't</h3>
+        <div class="case-rows">
+          <div class="case-row"><span class="k">Symptom</span><p>Purchase proposals came out at twice the lot size. The planning team suspected a Maestro calculation defect and prepared a vendor escalation.</p></div>
+          <div class="case-row"><span class="k">Trace</span><p>Side-by-side of SAP MRP rounding rules (<span class="mono">MM03</span>) against Maestro's strict Max &gt; Min &gt; Multiple precedence on the same part master.</p></div>
+          <div class="case-row hl"><span class="k">The call</span><p>By-design on both sides — the two engines round differently by specification. Written proof delivered the same day.</p></div>
+          <div class="case-row"><span class="k">Outcome</span><p>Escalation closed in under a day. Weeks of vendor ping-pong avoided; master data harmonised instead.</p></div>
+        </div>
+      </div>
+
+      <div class="case-card">
+        <div class="case-top"><span class="idx">CASE / C</span><span class="c-badge defect">Defect · proven</span></div>
+        <h3>The bug only production could see</h3>
+        <div class="case-rows">
+          <div class="case-row"><span class="k">Symptom</span><p>An end-of-life legacy planning tool — no vendor support left — produced intermittently wrong demand-review figures for a month. Top management watching.</p></div>
+          <div class="case-row"><span class="k">Trace</span><p>Same query replayed against QA and production, then down through the integration pipeline to the code: a hard-coded filter misclassifying future order book on one distribution channel.</p></div>
+          <div class="case-row hl"><span class="k">The call</span><p>Defect — proven at the exact line of code, with the reproducing dataset attached.</p></div>
+          <div class="case-row"><span class="k">Outcome</span><p>Fix routed to the right team with line-level proof. A month of doubt closed by one written trace, solo.</p></div>
+        </div>
+      </div>
+
+      <div class="case-card">
+        <div class="case-top"><span class="idx">CASE / D</span><span class="c-badge">Configuration</span></div>
+        <h3>Eight allocations where one belonged</h3>
+        <div class="case-rows">
+          <div class="case-row"><span class="k">Symptom</span><p>An allocation workbook multiplied records ×8 — every run created phantom lines the planners had to clean by hand.</p></div>
+          <div class="case-row"><span class="k">Trace</span><p>Composite worksheet design: three ungrouped data sources fanning out as a cartesian product — 2³ = 8, the arithmetic signature of the layout itself.</p></div>
+          <div class="case-row hl"><span class="k">The call</span><p>Authoring configuration, not data corruption: group the component sources and the fan-out collapses.</p></div>
+          <div class="case-row"><span class="k">Outcome</span><p>One checkbox per source. Verified the same day; the pattern now guards every composite review.</p></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- ─── FORENSIC SERIES ──────────────────────────────── -->
 <section class="section" id="series">
   <div class="wrap">
     <div class="section-head reveal">
-      <span class="h-section">§ 04 · Forensic Series</span>
+      <span class="h-section">§ 05 · Forensic Series</span>
       <span class="mono-tag">Published case work</span>
     </div>
 
@@ -242,13 +334,17 @@
           <a class="btn btn-ghost" href="assets/carousel/the_aps_partners_carousel_01.pdf" target="_blank" rel="noopener">Download the file (PDF)</a>
         </div>
       </div>
-      <div class="carousel-strip" aria-label="Carousel Nº 01 slides">
+      <div class="carousel-strip" id="strip-01" aria-label="Carousel Nº 01 slides — click to enlarge">
         <img src="assets/carousel/slide_01.webp" alt="Slide 1 — Date Chain Autopsy cover" loading="lazy">
         <img src="assets/carousel/slide_02.webp" alt="Slide 2 — the chain overview" loading="lazy">
+        <img src="assets/carousel/slide_03.webp" alt="Slide 3 — DemandDate to DueDate" loading="lazy">
+        <img src="assets/carousel/slide_04.webp" alt="Slide 4 — DockDate and ShipDate" loading="lazy">
         <img src="assets/carousel/slide_05.webp" alt="Slide 5 — where transit hides" loading="lazy">
+        <img src="assets/carousel/slide_06.webp" alt="Slide 6 — the bottom-up branch" loading="lazy">
         <img src="assets/carousel/slide_07.webp" alt="Slide 7 — the LTO triple" loading="lazy">
         <img src="assets/carousel/slide_08.webp" alt="Slide 8 — the bug pattern" loading="lazy">
-        <img src="assets/carousel/slide_10.webp" alt="Slide 10 — colophon" loading="lazy">
+        <img src="assets/carousel/slide_09.webp" alt="Slide 9 — the reschedule calc" loading="lazy">
+        <img src="assets/carousel/slide_10.webp" alt="Slide 10 — closing" loading="lazy">
       </div>
     </div>
 
@@ -273,7 +369,7 @@
 <section class="section" id="founder" style="padding-top:0">
   <div class="wrap">
     <div class="section-head reveal">
-      <span class="h-section">§ 05 · Founder</span>
+      <span class="h-section">§ 06 · Founder</span>
       <span class="mono-tag">Who you work with</span>
     </div>
     <div class="founder-grid reveal">
@@ -301,7 +397,7 @@
 <section class="section" id="faq">
   <div class="wrap">
     <div class="section-head reveal">
-      <span class="h-section">§ 06 · Questions</span>
+      <span class="h-section">§ 07 · Questions</span>
       <span class="mono-tag">Before you reach out</span>
     </div>
     <div class="faq-list reveal">
@@ -337,7 +433,7 @@
 <section class="section contact" id="contact">
   <div class="wrap">
     <div class="section-head reveal">
-      <span class="h-section">§ 07 · Contact</span>
+      <span class="h-section">§ 08 · Contact</span>
       <span class="mono-tag">Direct line · No intermediary</span>
     </div>
     <div class="contact-grid">
@@ -427,6 +523,16 @@
     <span>The <span class="acc">·</span> APS <span class="acc">·</span> Partners</span>
   </div>
 </footer>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Slide viewer">
+  <img id="lb-img" src="" alt="">
+  <div class="lb-bar">
+    <button type="button" id="lb-prev" aria-label="Previous slide">←</button>
+    <span id="lb-count">1 / 10</span>
+    <button type="button" id="lb-next" aria-label="Next slide">→</button>
+    <button type="button" id="lb-close" aria-label="Close viewer">Close</button>
+  </div>
+</div>
 
 <div class="noise"></div>
 <script src="assets/site.js"></script>
