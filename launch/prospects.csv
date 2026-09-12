@@ -1,0 +1,4 @@
+name,first_name,company,email,lang,sequence,context,ref
+Exemple Dupont,Marie,ACME Industrie,marie.dupont@example.com,fr,B,le go-live supply planning de 2024,APS-2026-001
+Example Smith,John,Globex Manufacturing,john.smith@example.com,en,B,the S&OP rollout we did together,APS-2026-002
+Exemple Martin,Paul,Intégrateur SI,paul.martin@example.com,fr,C,,APS-2026-003

@@ -32,7 +32,7 @@ module.exports = async (req, res) => {
   const email = String(body.email || '').trim().slice(0, 200);
   const company = String(body.company || '').trim().slice(0, 200);
   const message = String(body.message || '').trim().slice(0, 5000);
-  const intent = ['case', 'question', 'rdv'].includes(body.intent) ? body.intent : 'case';
+  const intent = ['case', 'question', 'rdv', 'diagnostic'].includes(body.intent) ? body.intent : 'case';
   const honeypot = String(body.website || '').trim();
 
   if (honeypot) {

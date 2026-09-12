@@ -6,6 +6,9 @@ Forensic Kinaxis Maestro consulting practice. Static editorial site + lead-intak
 
 ```
 index.html          single-page site (design system from the Forensic Series)
+diagnostic.html     sales page: Maestro 48-hour Diagnostic, €5,000 prepaid
+commande.html       one-page order form (FR/EN), prefill via ?client=&contact=&ref=&symptom=, print to PDF
+launch/             day-1 launch kit: DAY1.md runbook, e-mail sequences, LinkedIn posts, CSV mail-merge
 assets/style.css    tokens: #0a1520 / #00d2be · Playfair Display / Inter / JetBrains Mono
 assets/site.js      scroll reveal + lead form (API first, mailto fallback)
 assets/carousel/    Forensic Series Nº 01 (webp thumbs + PDF)
@@ -14,6 +17,16 @@ api/lead.js         serverless lead intake → Postgres (Vercel)
 schema.sql          leads table
 dev-server.js       local static server + /api/lead emulation (JSON store)
 ```
+
+## Launch kit
+
+```bash
+node launch/mailmerge.js      # prospects.csv + emails.md → launch/out/*.txt (mailto: on line 1)
+```
+
+Before sending anything: fill the red placeholders (SIREN, VAT, IBAN) in
+`commande.html` and `mentions-legales.html`, and optionally paste a card
+checkout URL into `PAY_URL` in `assets/site.js`. See `launch/DAY1.md`.
 
 ## Run locally
 

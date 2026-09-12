@@ -7,6 +7,16 @@
      anchors stay hidden while empty so no dead link ever ships. */
   var CREDLY_URL = '';
   var LINKEDIN_URL = '';
+  /* Card checkout for the 48-hour Diagnostic (€5,000). Paste a Stripe Payment
+     Link (or any hosted checkout URL) here; while empty the page shows the
+     bank-transfer route only, so no dead button ever ships. */
+  var PAY_URL = '';
+
+  var payBtn = document.getElementById('pay-card');
+  if (payBtn && PAY_URL) {
+    payBtn.href = PAY_URL; payBtn.hidden = false;
+    var off = document.getElementById('pay-card-off'); if (off) off.hidden = true;
+  }
 
   [['proof-credly', CREDLY_URL], ['proof-linkedin', LINKEDIN_URL]].forEach(function (p) {
     var el = document.getElementById(p[0]);
@@ -102,7 +112,8 @@
   var form = document.getElementById('lead-form');
   var status = document.getElementById('form-status');
   var submitBtn = document.getElementById('f-submit');
-  var intent = 'case';
+  var intentOn = document.querySelector('#intent-row .intent.on');
+  var intent = intentOn ? intentOn.dataset.intent : 'case';
 
   function setStatus(el, msg, cls) {
     el.textContent = msg;
@@ -122,12 +133,14 @@
       document.getElementById('f-message').placeholder = btn.dataset.ph;
       submitBtn.textContent = intent === 'question' ? 'Send the question'
                             : intent === 'rdv' ? 'Request the call'
+                            : intent === 'diagnostic' ? 'Send — I want the 48 h'
                             : 'Send the file';
     });
   }
 
   function intentSubject(data) {
-    var tag = intent === 'question' ? '[Question]' : intent === 'rdv' ? '[Call request]' : '[Problem report]';
+    var tag = intent === 'question' ? '[Question]' : intent === 'rdv' ? '[Call request]'
+            : intent === 'diagnostic' ? '[Diagnostic 48h]' : '[Problem report]';
     return tag + ' ' + (data.company || data.name);
   }
 
@@ -171,7 +184,9 @@
         return res.json();
       }).then(function () {
         form.reset();
-        setStatus(status, 'Filed. You will hear back within one business day.', 'ok');
+        setStatus(status, intent === 'diagnostic'
+          ? 'Filed. The intake sheet and payment details reach you within one business hour.'
+          : 'Filed. You will hear back within one business day.', 'ok');
       }).catch(function () {
         mailtoFallback(data);
       }).finally(function () {

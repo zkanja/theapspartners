@@ -20,6 +20,7 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
+[hidden] { display: none !important; }
 
 html { scroll-behavior: smooth; }
 
@@ -939,3 +940,14 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
   .reveal { opacity: 1; transform: none; transition: none; }
   html { scroll-behavior: auto; }
 }
+
+/* ─── DIAGNOSTIC — 48h timeline ────────────────────── */
+.tl { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1px; background: var(--hairline-soft); border: 1px solid var(--hairline-soft); }
+@media (max-width: 900px) { .tl { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 560px) { .tl { grid-template-columns: 1fr; } }
+.tl-item { background: var(--bg-primary); padding: 24px 22px 26px; }
+.tl-item .tl-t { font-family: var(--mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); }
+.tl-item h3 { margin-top: 14px; font-family: var(--sans); font-size: 16px; font-weight: 600; }
+.tl-item p { margin-top: 8px; font-size: 14px; line-height: 1.6; color: var(--text-secondary); }
+#pay-card-wrap { display: inline-flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+#pay-card-off { font-size: 11px; color: var(--text-secondary); }

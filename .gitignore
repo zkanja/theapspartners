@@ -3,3 +3,4 @@ leads.local.json
 .vercel/
 .env
 .env.*
+launch/out/
